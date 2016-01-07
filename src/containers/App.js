@@ -8,22 +8,24 @@ import TictactoeApp from '../components/TictactoeApp';
 
 class App extends React.Component {
   render() {
-    const { gameState, actions } = this.props;
+    const { gameState, notificationState, actions } = this.props;
 
     return (
-        <TictactoeApp gameState={gameState} actions={actions} />
+        <TictactoeApp gameState={gameState} notificationState={notificationState} actions={actions} />
     );
   }
 }
 
 App.propTypes = {
   actions: PropTypes.object.isRequired,
-  gameState: PropTypes.object.isRequired
+  gameState: PropTypes.object.isRequired,
+  notificationState: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    gameState: state.gameState
+    gameState: state.gameState,
+    notificationState: state.notificationState
   };
 }
 

@@ -18,9 +18,7 @@ const initialState = {
 export default function gameState(state = initialState, action) {
 	switch (action.type) {
 		case MOVE_SUCCESS:
-      let newState = Object.assign({}, state);
-      newState.board = action.payload.newBoard;
-      return newState;
+      return action.payload.newGameState;
 
 		default:
 			return state;

@@ -3,7 +3,6 @@ import Box from './Box';
 
 let Row = (props) => {
   let boxes = props.row.map((value, i) => <Box colIndex={i} value={value} key={i} {...props}/>);
-  // let boxes = <div>yoyoyo</div>;
   return (
     <div className={'row'}>
       {boxes}

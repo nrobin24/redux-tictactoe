@@ -1,28 +1,42 @@
 import * as types from '../constants/ActionTypes';
+import * as errors from '../constants/ErrorTypes';
 import gameApi from '../businessLogic/gameApi';
 
 
+export function showNotification(payload) {
+	return { type: types.SHOW_NOTIFICATION, payload };
+}
+
+export function clearNotification() {
+	return { type: types.CLEAR_NOTIFICATION };
+}
+
 export function moveSuccess(payload) {
-	console.log('got move success with');
-	console.log(payload);
 	return { type: types.MOVE_SUCCESS, payload };
 }
 
 export function moveError(payload) {
-	console.log('got move error with');
-	console.log(payload);
-	return { type: types.MOVE_ERROR, payload };
+	let { error } = payload;
+
+	if (error === errors.BOX_OCCUPIED) {
+		return (dispatch) => {
+			dispatch(showNotification({text: 'Sorry, that box is occupied'}));
+			setTimeout(() => {
+				dispatch(clearNotification());
+			}, 2000);
+		};
+	} else {
+		console.error('unexpected error');
+		console.error(error);
+	}
 }
 
 export function moveRequest(payload) {
-	console.log('got move request');
-	console.log('payload is');
-	console.log(payload);
 	return (dispatch) => {
 		gameApi
 			.move(payload)
 			.then((newGameState) => {
-				dispatch(moveSuccess(newGameState));
+				dispatch(moveSuccess({newGameState}));
 			})
 			.catch((gameError) => dispatch(moveError(gameError)));
 	};

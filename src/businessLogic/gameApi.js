@@ -1,13 +1,16 @@
+import { BOX_OCCUPIED } from '../constants/ErrorTypes';
+
 let isBoxOccupied = ({board, rowIndex, colIndex}) => board[rowIndex][colIndex] !== 0;
 
-let move = ({board, rowIndex, colIndex, playerTurn}) => {
+let move = ({gameState, rowIndex, colIndex}) => {
+  let {board, playerTurn} = gameState;
   return new Promise((resolve, reject) => {
     if (isBoxOccupied({board, rowIndex, colIndex})) {
-      reject('occupied');
+      reject({error: BOX_OCCUPIED});
     } else {
-      let newBoard  = [].concat(board);
-      newBoard[rowIndex][colIndex] = playerTurn;
-      resolve(newBoard);
+      let newGameState = Object.assign({}, gameState);
+      newGameState.board[rowIndex][colIndex] = playerTurn;
+      resolve(newGameState);
     }
   });
 };
