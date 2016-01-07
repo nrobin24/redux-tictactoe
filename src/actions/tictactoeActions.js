@@ -11,6 +11,7 @@ export function clearNotification() {
 	return { type: types.CLEAR_NOTIFICATION };
 }
 
+
 export function moveSuccess(payload) {
 	return { type: types.MOVE_SUCCESS, payload };
 }

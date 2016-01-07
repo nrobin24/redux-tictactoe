@@ -7,7 +7,8 @@ const initialState = {
     [0,0,0],
     [0,0,0]
   ],
-  playerTurn: 1
+  playerTurn: 1,
+  winner: 0
 };
 
 //IMPORTANT: Note that with Redux, state should NEVER be changed.
